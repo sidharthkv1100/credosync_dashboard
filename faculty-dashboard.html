@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CredoSync | Faculty Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glow-text { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        .hidden-page { display: none; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-sky-500 selection:text-white min-h-screen flex flex-col">
+
+    <nav id="mainNav" class="hidden-page container mx-auto px-6 py-4 flex justify-between items-center border-b border-gray-800 bg-gray-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="text-2xl font-bold tracking-tighter text-white cursor-pointer" onclick="navigate('home')">
+            Credo<span class="text-sky-500">Sync</span> <span class="text-xs text-gray-500 font-mono tracking-normal ml-2">FACULTY PORTAL</span>
+        </div>
+        <div class="flex items-center space-x-6">
+            <div class="px-3 py-1 bg-gray-900 border border-gray-700 rounded text-xs text-gray-400 font-mono">
+                DEPT: <span class="text-sky-400 font-bold">ECE</span>
+            </div>
+            <button onclick="logout()" class="text-sm text-red-400 hover:text-red-300 font-semibold transition-colors">
+                Log Out
+            </button>
+        </div>
+    </nav>
+
+    <div id="page-login" class="flex-grow flex items-center justify-center p-6">
+        <div class="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-8 text-center relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl"></div>
+            
+            <h1 class="text-4xl font-extrabold tracking-tight mb-2 text-white glow-text">Credo<span class="text-sky-500">Sync</span></h1>
+            <p class="text-sm text-gray-400 mb-8">Faculty Authentication Gateway</p>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-5 text-left">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Faculty ID / Email</label>
+                    <input type="email" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" value="faculty@ece.logicstream.edu">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Secure Password</label>
+                    <input type="password" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" value="password123">
+                </div>
+                <button type="submit" class="w-full mt-4 px-4 py-3 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-bold shadow-lg shadow-sky-500/30 transition-all">
+                    Authenticate
+                </button>
+            </form>
+            <p class="text-xs text-gray-500 mt-6 font-mono">Access restricted to authorized personnel only.</p>
+        </div>
+    </div>
+
+    <div id="page-home" class="hidden-page container mx-auto px-6 py-12 flex-grow">
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2">Welcome, Prof. Sharma</h2>
+            <p class="text-gray-400">Select an academic year to view real-time attendance and device metrics for the Electronics and Communication Engineering department.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <button onclick="viewYear('1st Year')" class="text-left group p-8 rounded-2xl bg-gray-900 border border-gray-800 hover:border-sky-500 transition-all relative overflow-hidden">
+                <div class="text-4xl font-black text-gray-800 group-hover:text-sky-500/20 absolute top-4 right-6 transition-colors">01</div>
+                <h3 class="text-2xl font-bold text-white mb-2 relative z-10">1st Year</h3>
+                <p class="text-sm text-gray-400 relative z-10">Semesters 1 & 2</p>
+                <div class="mt-6 flex items-center text-sky-400 text-sm font-semibold relative z-10">
+                    View Roster <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </button>
+
+            <button onclick="viewYear('2nd Year')" class="text-left group p-8 rounded-2xl bg-gray-900 border border-gray-800 hover:border-sky-500 transition-all relative overflow-hidden">
+                <div class="text-4xl font-black text-gray-800 group-hover:text-sky-500/20 absolute top-4 right-6 transition-colors">02</div>
+                <h3 class="text-2xl font-bold text-white mb-2 relative z-10">2nd Year</h3>
+                <p class="text-sm text-gray-400 relative z-10">Semesters 3 & 4</p>
+                <div class="mt-6 flex items-center text-sky-400 text-sm font-semibold relative z-10">
+                    View Roster <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </button>
+
+            <button onclick="viewYear('3rd Year')" class="text-left group p-8 rounded-2xl bg-gray-900 border border-gray-800 hover:border-sky-500 transition-all relative overflow-hidden">
+                <div class="text-4xl font-black text-gray-800 group-hover:text-sky-500/20 absolute top-4 right-6 transition-colors">03</div>
+                <h3 class="text-2xl font-bold text-white mb-2 relative z-10">3rd Year</h3>
+                <p class="text-sm text-gray-400 relative z-10">Semesters 5 & 6</p>
+                <div class="mt-6 flex items-center text-sky-400 text-sm font-semibold relative z-10">
+                    View Roster <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </button>
+
+            <button onclick="viewYear('4th Year')" class="text-left group p-8 rounded-2xl bg-gray-900 border border-gray-800 hover:border-sky-500 transition-all relative overflow-hidden">
+                <div class="text-4xl font-black text-gray-800 group-hover:text-sky-500/20 absolute top-4 right-6 transition-colors">04</div>
+                <h3 class="text-2xl font-bold text-white mb-2 relative z-10">4th Year</h3>
+                <p class="text-sm text-gray-400 relative z-10">Semesters 7 & 8</p>
+                <div class="mt-6 flex items-center text-sky-400 text-sm font-semibold relative z-10">
+                    View Roster <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div id="page-list" class="hidden-page container mx-auto px-6 py-12 flex-grow">
+        <button onclick="navigate('home')" class="mb-6 flex items-center text-gray-400 hover:text-white transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Years
+        </button>
+        
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 id="list-title" class="text-3xl font-bold text-white mb-1">Year Students</h2>
+                <p class="text-gray-400 text-sm">Real-time attendance and device status via CredoSync RFID.</p>
+            </div>
+            <div class="text-right">
+                <p class="text-xs text-gray-500 font-mono">LIVE SYNC ACTIVE <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse ml-1"></span></p>
+            </div>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-950 border-b border-gray-800 text-gray-400 text-sm">
+                            <th class="p-4 font-semibold">Roll No.</th>
+                            <th class="p-4 font-semibold">Student Name</th>
+                            <th class="p-4 font-semibold">Class Attendance</th>
+                            <th class="p-4 font-semibold">Device Status</th>
+                            <th class="p-4 font-semibold text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body" class="text-sm">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-detail" class="hidden-page container mx-auto px-6 py-12 flex-grow">
+        <button onclick="navigate('list')" class="mb-6 flex items-center text-gray-400 hover:text-white transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Student List
+        </button>
+        
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-8 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between">
+            <div>
+                <div class="flex items-center mb-2">
+                    <h2 id="detail-name" class="text-3xl font-bold text-white mr-4">Student Name</h2>
+                    <span id="detail-phone-badge" class="px-2 py-1 rounded text-xs font-bold uppercase">Phone Status</span>
+                </div>
+                <p class="text-gray-400 font-mono text-sm">Roll No: <span id="detail-roll" class="text-gray-300"></span> | Dept: ECE</p>
+            </div>
+            
+            <div class="mt-6 md:mt-0 text-center">
+                <div class="text-4xl font-black text-sky-400" id="detail-overall">0%</div>
+                <div class="text-xs text-gray-500 uppercase tracking-wider mt-1">Overall Attendance</div>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-bold text-white mb-6">Subject-Wise Attendance Analytics</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="subjects-container">
+            </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // MOCK DATABASE
+        // ==========================================
+        // Notice the department is strictly isolated to ECE subjects.
+        const subjects = [
+            "Analog Electronics", 
+            "Microcontrollers (8051)", 
+            "VLSI Design", 
+            "Digital Signal Processing", 
+            "Control Systems", 
+            "Embedded Architecture"
+        ];
+
+        const mockStudents = [
+            { roll: "ECE-042", name: "Sidharth K V", status: "Present", phone: "Secured", att: [88, 92, 85, 90, 89, 95] },
+            { roll: "ECE-018", name: "Harishankar V B", status: "Present", phone: "Secured", att: [95, 80, 98, 85, 92, 88] },
+            { roll: "ECE-033", name: "Kiran Sivanandan", status: "Absent", phone: "Retained", att: [75, 78, 80, 72, 85, 88] },
+            { roll: "ECE-012", name: "Aisha Rahman", status: "Present", phone: "Retained", att: [98, 99, 95, 96, 97, 99] },
+            { roll: "ECE-055", name: "Rohan Kumar", status: "Present", phone: "Secured", att: [65, 70, 68, 75, 62, 80] },
+            { roll: "ECE-027", name: "Meera Menon", status: "Absent", phone: "Retained", att: [82, 85, 88, 81, 90, 86] }
+        ];
+
+        // ==========================================
+        // NAVIGATION LOGIC
+        // ==========================================
+        const pages = ['page-login', 'page-home', 'page-list', 'page-detail'];
+
+        function navigate(targetPage) {
+            // Hide all pages
+            pages.forEach(p => document.getElementById(p).classList.add('hidden-page'));
+            
+            // Show target page
+            document.getElementById(`page-${targetPage}`).classList.remove('hidden-page');
+            
+            // Handle Navigation Bar Visibility
+            const nav = document.getElementById('mainNav');
+            if (targetPage === 'login') {
+                nav.classList.add('hidden-page');
+            } else {
+                nav.classList.remove('hidden-page');
+            }
+        }
+
+        // ==========================================
+        // FUNCTIONALITY
+        // ==========================================
+        function handleLogin(e) {
+            e.preventDefault();
+            // In a real app, this would verify JWT tokens and department IDs.
+            navigate('home');
+        }
+
+        function logout() {
+            navigate('login');
+        }
+
+        function viewYear(yearName) {
+            document.getElementById('list-title').innerText = `${yearName} ECE Roster`;
+            
+            const tbody = document.getElementById('student-table-body');
+            tbody.innerHTML = ''; // Clear old rows
+
+            // Randomize student order slightly for the mock demo
+            let currentStudents = [...mockStudents].sort(() => 0.5 - Math.random());
+
+            currentStudents.forEach((student, index) => {
+                // Determine Badge Colors
+                let attColor = student.status === 'Present' ? 'bg-green-900/50 text-green-400 border-green-500/30' : 'bg-red-900/50 text-red-400 border-red-500/30';
+                let phoneColor = student.phone === 'Secured' ? 'bg-sky-900/50 text-sky-400 border-sky-500/30' : 'bg-amber-900/50 text-amber-400 border-amber-500/30';
+                let phoneIcon = student.phone === 'Secured' ? '<svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>' : '<svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>';
+
+                let row = `
+                    <tr class="border-b border-gray-800 hover:bg-gray-800/50 transition-colors">
+                        <td class="p-4 font-mono text-gray-400">${student.roll}</td>
+                        <td class="p-4 font-bold text-white">${student.name}</td>
+                        <td class="p-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs border ${attColor}">
+                                ${student.status}
+                            </span>
+                        </td>
+                        <td class="p-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs border ${phoneColor}">
+                                ${phoneIcon} Device ${student.phone}
+                            </span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="viewStudent(${index})" class="text-sky-400 hover:text-sky-300 font-semibold transition-colors">View Data</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+
+            navigate('list');
+        }
+
+        function viewStudent(index) {
+            // Because we randomized, we need to pass the raw data differently in a real app, 
+            // but for this mock, we'll just grab a random student from the main array for visual effect.
+            const student = mockStudents[index];
+            
+            document.getElementById('detail-name').innerText = student.name;
+            document.getElementById('detail-roll').innerText = student.roll;
+
+            // Setup phone badge on detail page
+            let phoneBadge = document.getElementById('detail-phone-badge');
+            if (student.phone === 'Secured') {
+                phoneBadge.innerText = 'Device Secured in Locker';
+                phoneBadge.className = 'px-2 py-1 rounded text-xs font-bold uppercase bg-sky-900/50 text-sky-400 border border-sky-500/30';
+            } else {
+                phoneBadge.innerText = 'Device Retained by Student';
+                phoneBadge.className = 'px-2 py-1 rounded text-xs font-bold uppercase bg-amber-900/50 text-amber-400 border border-amber-500/30';
+            }
+
+            // Calculate overall attendance
+            let sum = student.att.reduce((a, b) => a + b, 0);
+            let avg = Math.round(sum / student.att.length);
+            document.getElementById('detail-overall').innerText = `${avg}%`;
+            document.getElementById('detail-overall').className = `text-4xl font-black ${avg >= 75 ? 'text-green-400' : 'text-red-400'}`;
+
+            // Render Subjects
+            const subContainer = document.getElementById('subjects-container');
+            subContainer.innerHTML = '';
+
+            subjects.forEach((sub, i) => {
+                let p = student.att[i];
+                let barColor = p >= 75 ? 'bg-sky-500' : 'bg-red-500';
+                
+                let card = `
+                    <div class="bg-gray-950 border border-gray-800 rounded-xl p-5">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-gray-200 text-sm truncate pr-2">${sub}</h4>
+                            <span class="font-mono font-bold ${p >= 75 ? 'text-sky-400' : 'text-red-400'}">${p}%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2">
+                            <div class="${barColor} h-2 rounded-full" style="width: ${p}%"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3 text-right">${p >= 75 ? 'Target Met' : 'Warning: Low Attendance'}</p>
+                    </div>
+                `;
+                subContainer.innerHTML += card;
+            });
+
+            navigate('detail');
+        }
+
+        // Initialize App by showing login page
+        navigate('login');
+    </script>
+</body>
+</html>
